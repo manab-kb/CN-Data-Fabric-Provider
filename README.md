@@ -1,13 +1,12 @@
-# Insert *your project title* here
-Write a detailed description about your project - eg: instructions on how to get started, common issues, etc.
+# CN-Data-Fabric-Provider
+A repository containing an implementation of a distributed data fabric provider for intermittent communication in conflict zone scenarios.
 
-# Contributing to *your project title*
-Hello and welcome! We are so glad that you are interested in contributing to *your project title*!
+# Contributing to CN-Data-Fabric-Provider
+Hello and welcome! We are so glad that you are interested in contributing to CN Data Fabric Provider!
 We only have a couple of rules and we hope you enjoy the process :)
 
 ## Contributing Rules
 1. Don't move or delete any files. Only modify them.
-2. Add additional rules as per *your project title*.
 
 ## Contributing Process
 1. Fork the repository
