@@ -1,5 +1,5 @@
 # CN-Data-Fabric-Provider
-A repository containing an implementation of a distributed data fabric provider for intermittent communication in conflict zone scenarios.
+A repository containing an implementation of a blockchain based decentralized and distributed data fabric provider for intermittent communication, targeted towards improving unmanned vehicular communication (UAV's).
 
 # Contributing to CN-Data-Fabric-Provider
 Hello and welcome! We are so glad that you are interested in contributing to CN Data Fabric Provider!
