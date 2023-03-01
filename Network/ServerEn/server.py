@@ -1,6 +1,7 @@
 from socket import *
 from threading import *
-from os import *
+import os
+import pickle
 
 # Class containing member functions and variables for a multithreaded server implementation
 class multithreadServer(object):
@@ -10,8 +11,8 @@ class multithreadServer(object):
         self.port = portnum
 
         # Opening the created database for the blockchain
-        self.dbname = self.locname + ".txt" # Fix locname import
-        chdir("../GCS")
+        self.dbname = "College Green.txt"
+        os.chdir("C:/Users/Manab Kumar Biswas/CN-Data-Fabric-Provider/GCS")
         self.f = open(self.dbname, "a+")
 
         # Creation and binding a TCP soclet with socket options set to resue addresses once clients are disconnected
@@ -33,10 +34,12 @@ class multithreadServer(object):
             try:
                 data = client.recv(size)
                 if data:
-                    self.f.writelines(data) # Add code to make sure necessary lines are rewritten
+                    blockData = pickle.loads(data)
+                    # Thread(target = self.f.writelines, args = (blockstrData,)).start() # Add code to make sure necessary lines are rewritten
                 else:
                     # Possibility of UAV disconnection as data is not being received by the server
                     raise error("@log: possibility of UAV disconnection.")
+                self.f.writelines(blockData)
+                self.f.close()
             except:
-                client.close()
-                return False
+                pass

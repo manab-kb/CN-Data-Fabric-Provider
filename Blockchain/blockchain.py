@@ -1,12 +1,13 @@
 from geopy import *
 from datetime import *
-from fuzzyhashlib import *
+from hashlib import *
+from json import *
 
 # Class containing member functions and variables for the blockchain
 class Blockchain:
 
     # Constructor function to declare and initialize all member variables being used
-    def __init__(self,  proof, hash, powlen, initLat = 53.344250, initLong = -6.262410,):
+    def __init__(self,  proof, hash, powlen, initLat = 53.344250, initLong = -6.262410):
         if proof == hash == 0:
             # Creating an empty blockchain
             self.bchain = []
@@ -24,7 +25,8 @@ class Blockchain:
 
         # Determining name of location from coordinates - to name the centralised database
         self.geoloc = Nominatim(user_agent="blockchain_uavnet")
-        self.locname = self.geoloc.reverse(str(self.coord))
+        self.loc = str(self.geoloc.reverse(self.coord))
+        self.locname = self.loc[3:16]
 
     # Function to create and append a new block
     def createBlock(self):
@@ -39,14 +41,15 @@ class Blockchain:
 
     # Function to calculate the hashvalue for the block
     def hashValue(self):
-        hashVal = sdhash(self.newBlock).hexdigest()
+        encodedBlock = dumps(self.newBlock).encode()
+        hashVal = md5(encodedBlock).hexdigest()
         return hashVal
 
     # Function for Proof Of Work (POW)
     def poW(self, powcomp):
         # checking if the area covered by the UAV matches the defined area to be covered by the GCS
         if powcomp < self.powlen:
-            print("@log: POW match failed: Covered area lesser than defined area.")
+            # print("@log: POW match failed: Covered area lesser than defined area.")
             return False
         else:
             return True
