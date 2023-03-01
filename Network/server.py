@@ -35,5 +35,3 @@ class multithreadServer(object):
             except:
                 client.close()
                 return False
-
-multithreadServer('',4500).listen()
