@@ -2,7 +2,7 @@ from socket import *
 from threading import *
 
 # Class containing member functions and variables for a multithreaded server implementation
-class multithreadServer:
+class multithreadServer(object):
     # Constructor function to create a socket with the hostname and port number provided by the GCS
     def __init__(self, hostname, portnum):
         self.host = hostname
@@ -18,7 +18,7 @@ class multithreadServer:
         self.sock.listen(10)
         while True:
             client, add = self.sock.accept()
-            Thread(target = self.recvData, args = (client)).start()
+            Thread(target = self.recvData, args = (client,)).start()
 
     # Function which helps in receiving data from the UAV's (clients) - function to be executed by each running thread
     def recvData(self, client):
@@ -36,4 +36,4 @@ class multithreadServer:
                 client.close()
                 return False
 
-# multithreadServer('',port_num).listen()
+multithreadServer('',4500).listen()
