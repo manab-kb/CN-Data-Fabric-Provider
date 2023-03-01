@@ -1,5 +1,6 @@
 from socket import *
 from threading import *
+from os import *
 
 # Class containing member functions and variables for a multithreaded server implementation
 class multithreadServer(object):
@@ -7,6 +8,11 @@ class multithreadServer(object):
     def __init__(self, hostname, portnum):
         self.host = hostname
         self.port = portnum
+
+        # Opening the created database for the blockchain
+        self.dbname = self.locname + ".txt" # Fix locname import
+        chdir("../GCS")
+        self.f = open(self.dbname, "a+")
 
         # Creation and binding a TCP soclet with socket options set to resue addresses once clients are disconnected
         self.sock = socket(AF_INET, SOCK_STREAM)
@@ -27,8 +33,7 @@ class multithreadServer(object):
             try:
                 data = client.recv(size)
                 if data:
-                    # Include call to the function which writes data into the global db
-                    pass
+                    self.f.writelines(data) # Add code to make sure necessary lines are rewritten
                 else:
                     # Possibility of UAV disconnection as data is not being received by the server
                     raise error("@log: possibility of UAV disconnection.")

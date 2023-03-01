@@ -11,5 +11,6 @@ class client:
         # Creating a TCP socket and using it to connect to the server socket
         with socket(AF_INET, SOCK_STREAM) as skt:
             skt.connect((self.host, self.port))
+            # Add code for sending blockchain data to the server (inheritance from blockchain)
             skt.sendall(b"@log: client connected to server")
             data = skt.recv(1024)
