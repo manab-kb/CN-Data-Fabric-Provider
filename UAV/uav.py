@@ -1,8 +1,9 @@
 from Blockchain.blockchain import *
 from random import *
 from math import *
-from os import *
+import os
 from Network.ServerEn.client import *
+from threading import *
 
 # Class containing member functions and variables for each individual UAV (Unmanned Aerial Vehicle - Drone)
 class UAV(Blockchain, client):
@@ -51,13 +52,17 @@ class UAV(Blockchain, client):
         # Finding hashvalue for the block to be added and calling the functions to create and validate the block before being added into the blockchain
         if len(self.bchain) > 1:
             Blockchain.__init__(self, proof, 250)
+            print("@log: Block Generated")
             self.createBlock()
         
         if len(self.bchain) <= 1:
             Blockchain.__init__(self, proof, 250)
+            print("@log: Block Generated")
             self.createBlock()
         
-        # self.validate()
+        # Thread(target = self.validate, args = ())
+        self.validate()
+        print("@log: Block Validated")
 
     def globalcdb(self):
         self.serverConn(self.bchain)
@@ -74,11 +79,11 @@ class UAV(Blockchain, client):
         # index = self.lastBlock['index']
         index = 1 # Temporary fix
         dirname = "UAV" + str(index)
-        chdir("../UAV")
-        if not path.exists(dirname):
-            mkdir(dirname)
-        chdir(dirname)
+        os.chdir("C:/Users/Manab Kumar Biswas/CN-Data-Fabric-Provider/UAV")
+        if not os.path.exists(dirname):
+            os.mkdir(dirname)
+        os.chdir(dirname)
 
         # Continuing to write to the local db unless connection is established
-        f = open("localBChain.txt" , "a+")
-        f.writeline(self.bchain)
+        localf = open("localBChain.txt" , "w")
+        localf.write(str(self.bchain))

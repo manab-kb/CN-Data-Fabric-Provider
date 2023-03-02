@@ -61,15 +61,18 @@ class Blockchain:
 
     # Function to validate each transaction of data within the blockchain
     def validate(self):
-        block1 = self.bchain[0]
+        if len(self.bchain) == 1:
+            pass
+
         blockind = 1
 
         # Checking if block indices and hash values are as needed
         while blockind < len(self.bchain):
+            block1 = self.bchain[blockind-1]
             block2 = self.bchain[blockind]
 
             if self.hashValue(block1) != block2['prevHash']:
                 print("@log: hashvalue mismatch.")
             
             else:
-                continue
+                blockind+=1
