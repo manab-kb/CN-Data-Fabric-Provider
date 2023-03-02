@@ -24,7 +24,6 @@ def globalwriteFunc(p1):
             p1 = UAV1.globalcdb()
         
         except KeyboardInterrupt:
-            UAV1.
             localwriteFunc(p1)
             # Add code to merge local buffer file blockchain to global db
 
