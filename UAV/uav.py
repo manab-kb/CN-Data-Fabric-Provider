@@ -8,8 +8,8 @@ from Network.ServerEn.client import *
 class UAV(Blockchain, client):
 
     # Constructor function to declare and initialise all member variables being used alongside calling the superclass
-    def __init__(self):
-        Blockchain.__init__(self, 0, 0, 250)
+    def __init__(self, proof):
+        Blockchain.__init__(self, proof, 250)
         # Initializing client class with hostname and port number
         client.__init__(self, '127.0.0.1', 4500)
         # self.lastBlock = self.bchain[-1] Temporary fix
@@ -17,7 +17,7 @@ class UAV(Blockchain, client):
         # Declaring and initializing variables to be used to compute proof for POW
         templat = self.initLat
         templong = self.initLong
-        proof = 0
+        proof = proof
         dist = sqrt(pow((templat - self.initLat), 2) + pow((templong - self.initLong), 2))
 
         # Producing a random variable out of 4 choices to determine the direction amongst 4-axis in which the drone will navigate in order to cover all possible areas from the initial coordinates
@@ -50,19 +50,18 @@ class UAV(Blockchain, client):
         
         # Finding hashvalue for the block to be added and calling the functions to create and validate the block before being added into the blockchain
         if len(self.bchain) > 1:
-            hashv = self.hashValue()
-            Blockchain.__init__(self, proof, hashv, 250)
+            Blockchain.__init__(self, proof, 250)
             self.createBlock()
         
         if len(self.bchain) <= 1:
-            Blockchain.__init__(self, proof, 0, 250)
+            Blockchain.__init__(self, proof, 250)
             self.createBlock()
-            hashv = self.hashValue()
         
-        self.validate()
+        # self.validate()
 
     def globalcdb(self):
         self.serverConn(self.bchain)
+        return self.proof
         # TO DO - add client socket code to communicate with other client sockets (decentralised) without the gcs and also with the gcs
         # Also add code to switch to local buffers only when UAV is disconnected from blockchain and match and update central blockchain db once connection is reestablished
         # Ensure GBN / SR and Timeouts are used to make the client code reliable

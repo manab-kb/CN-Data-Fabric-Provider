@@ -2,15 +2,20 @@ from geopy import *
 from datetime import *
 from hashlib import *
 from json import *
+import ast
 
 # Class containing member functions and variables for the blockchain
 class Blockchain:
 
     # Constructor function to declare and initialize all member variables being used
-    def __init__(self,  proof, hash, powlen, initLat = 53.344250, initLong = -6.262410):
-        if proof == hash == 0:
+    def __init__(self, proof, powlen, initLat = 53.344250, initLong = -6.262410):
+        if proof == 0:
             # Creating an empty blockchain
             self.bchain = []
+        else:
+            file = open("C:/Users/Manab Kumar Biswas/CN-Data-Fabric-Provider/GCS/College Green.txt", "r")
+            data = file.read()
+            self.bchain = ast.literal_eval(data)
 
         # Tuple for coordinates from location coordinates entered by the user / default values
         self.initLat = initLat
@@ -19,7 +24,6 @@ class Blockchain:
 
         # Declaring and initialising variables for proof, hash, prevhash and powlen
         self.proof = proof
-        self.hash = hash
         self.prevhash = 0
         self.powlen = powlen
 
@@ -35,13 +39,13 @@ class Blockchain:
             self.prevHash = 0
         else:
             tempblock = self.bchain[-1]
-            self.prevHash = tempblock['hash']
-        self.newBlock = {'index' : len(self.bchain) + 1, 'prevHash' : self.prevHash, 'hash' : self.hash, 'proof' : self.proof, 'timestamp' : str(datetime.now())}
+            self.prevHash = self.hashValue(tempblock)
+        self.newBlock = {'index' : len(self.bchain) + 1, 'prevHash' : self.prevHash, 'proof' : self.proof, 'timestamp' : str(datetime.now())}
         self.bchain.append(self.newBlock)
 
     # Function to calculate the hashvalue for the block
-    def hashValue(self):
-        encodedBlock = dumps(self.newBlock).encode()
+    def hashValue(self, dict):
+        encodedBlock = dumps(dict).encode()
         hashVal = md5(encodedBlock).hexdigest()
         return hashVal
 

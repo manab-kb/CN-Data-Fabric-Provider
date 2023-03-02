@@ -29,6 +29,7 @@ class multithreadServer(object):
 
     # Function which helps in receiving data from the UAV's (clients) - function to be executed by each running thread
     def recvData(self, client):
+        blockData = ""
         size = 1024
         while True:
             try:
@@ -39,7 +40,9 @@ class multithreadServer(object):
                 else:
                     # Possibility of UAV disconnection as data is not being received by the server
                     raise error("@log: possibility of UAV disconnection.")
-                self.f.writelines(blockData)
+                print(blockData)
+                self.f.write(blockData)
                 self.f.close()
             except:
-                pass
+                client.close()
+                return False

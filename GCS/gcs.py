@@ -7,13 +7,13 @@ class GCS(Blockchain, multithreadServer):
 
     # Constructor function to declare and initialise all member variables being used alongside calling the superclass
     def __init__(self):
-        Blockchain.__init__(self, 0, 0, 250)
+        Blockchain.__init__(self, 0, 250)
         
         # Creating a database for the blockchain
         self.dbname = self.locname + ".txt"
         os.chdir("C:/Users/Manab Kumar Biswas/CN-Data-Fabric-Provider/GCS")
         self.f = open(self.dbname, "a+")
-        self.f.close()
+        # self.f.close()
 
     # Function to update the global db as and when blocks are created
     def globalcdb(self):
