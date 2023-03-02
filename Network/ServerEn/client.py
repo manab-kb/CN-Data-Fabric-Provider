@@ -15,6 +15,7 @@ class client:
         with socket(AF_INET, SOCK_STREAM) as sock:
             sock.connect((self.host, self.port))
             print("\n@log: Connected to GCS\n")
+            # print(bdata)
             # Add code for sending blockchain data to the server
             bstream = pickle.dumps(bdata)
             sock.sendall(bstream)

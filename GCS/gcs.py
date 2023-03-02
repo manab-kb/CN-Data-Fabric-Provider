@@ -12,7 +12,7 @@ class GCS(Blockchain, multithreadServer):
         # Creating a database for the blockchain
         self.dbname = self.locname + ".txt"
         os.chdir("C:/Users/Manab Kumar Biswas/CN-Data-Fabric-Provider/GCS")
-        self.f = open(self.dbname, "a+")
+        self.f = open(self.dbname, "w")
         self.f.write('[]')
         self.f.close()
 

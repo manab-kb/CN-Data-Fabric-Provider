@@ -35,18 +35,18 @@ class multithreadServer(object):
     # Function which helps in receiving data from the UAV's (clients) - function to be executed by each running thread
     def recvData(self, client):
         blockData = ""
-        size = 1024
+        size = 4096
         while True:
             try:
                 data = client.recv(size)
                 if data:
                     blockData = pickle.loads(data)
                     self.writetoDb(str(blockData))
-                    print(blockData)
-                else:
-                    # Possibility of UAV disconnection as data is not being received by the server
-                    raise error("@log: possibility of UAV disconnection.")
-            except:
-                print("hereee")
+                    # print(blockData)
                 client.close()
-                return False
+            except:
+                # client.close()
+                # return False
+                # Possibility of UAV disconnection as data is not being received by the server
+                # raise error("@log: possibility of UAV disconnection.")
+                pass
