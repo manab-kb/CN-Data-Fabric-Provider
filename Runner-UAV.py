@@ -24,10 +24,10 @@ def globalwriteFunc(p1):
             p1 = UAV1.globalcdb()
         
         except KeyboardInterrupt:
+            UAV1.
             localwriteFunc(p1)
             # Add code to merge local buffer file blockchain to global db
 
 # Declaration of proof for the first block within the blockchain
 p1 = 1
 globalwriteFunc(p1)
-    
