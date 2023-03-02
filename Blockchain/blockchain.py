@@ -15,6 +15,7 @@ class Blockchain:
         else:
             file = open("C:/Users/Manab Kumar Biswas/CN-Data-Fabric-Provider/GCS/College Green.txt", "r")
             data = file.read()
+            file.close()
             self.bchain = ast.literal_eval(data)
 
         # Tuple for coordinates from location coordinates entered by the user / default values

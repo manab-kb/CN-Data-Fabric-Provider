@@ -13,7 +13,8 @@ class GCS(Blockchain, multithreadServer):
         self.dbname = self.locname + ".txt"
         os.chdir("C:/Users/Manab Kumar Biswas/CN-Data-Fabric-Provider/GCS")
         self.f = open(self.dbname, "a+")
-        # self.f.close()
+        self.f.write('[]')
+        self.f.close()
 
     # Function to update the global db as and when blocks are created
     def globalcdb(self):

@@ -10,11 +10,6 @@ class multithreadServer(object):
         self.host = hostname
         self.port = portnum
 
-        # Opening the created database for the blockchain
-        self.dbname = "College Green.txt"
-        os.chdir("C:/Users/Manab Kumar Biswas/CN-Data-Fabric-Provider/GCS")
-        self.f = open(self.dbname, "a+")
-
         # Creation and binding a TCP soclet with socket options set to resue addresses once clients are disconnected
         self.sock = socket(AF_INET, SOCK_STREAM)
         self.sock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
@@ -25,7 +20,17 @@ class multithreadServer(object):
         self.sock.listen(10)
         while True:
             client, add = self.sock.accept()
+            print("\n@log: UAV connected: " + str(add) + "\n")
             Thread(target = self.recvData, args = (client,)).start()
+    
+    # Function which helps in writing the contents of the blockchain to global central database
+    def writetoDb(self, data):
+        # Opening and writing to the created database for the blockchain
+        dbname = "College Green.txt"
+        os.chdir("C:/Users/Manab Kumar Biswas/CN-Data-Fabric-Provider/GCS")
+        writefile = open(dbname, "w")
+        writefile.write(data)
+        writefile.close()
 
     # Function which helps in receiving data from the UAV's (clients) - function to be executed by each running thread
     def recvData(self, client):
@@ -36,13 +41,12 @@ class multithreadServer(object):
                 data = client.recv(size)
                 if data:
                     blockData = pickle.loads(data)
-                    # Thread(target = self.f.writelines, args = (blockstrData,)).start() # Add code to make sure necessary lines are rewritten
+                    self.writetoDb(str(blockData))
+                    print(blockData)
                 else:
                     # Possibility of UAV disconnection as data is not being received by the server
                     raise error("@log: possibility of UAV disconnection.")
-                print(blockData)
-                self.f.write(blockData)
-                self.f.close()
             except:
+                print("hereee")
                 client.close()
                 return False

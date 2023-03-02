@@ -1,6 +1,6 @@
 from UAV.uav import *
 
-p1 = 0
+p1 = 1
 
 while True:
     UAV1 = UAV(p1)
