@@ -12,6 +12,11 @@ class Blockchain:
         if proof == 0:
             # Creating an empty blockchain
             self.bchain = []
+        elif proof == 75:
+            localfile = open("C:/Users/Manab Kumar Biswas/CN-Data-Fabric-Provider/UAV/UAV1/localBChain.txt", "r")
+            localdata = localfile.read()
+            localfile.close()
+            self.bchain = ast.literal_eval(localdata)
         else:
             file = open("C:/Users/Manab Kumar Biswas/CN-Data-Fabric-Provider/GCS/College Green.txt", "r")
             data = file.read()

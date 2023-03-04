@@ -4,14 +4,16 @@ from keyboard import *
 # Program to simulate various test cases on the UAV and the Blockchain
 
 # Function to write to the localdb when disconnected from the global db
-def localwriteFunc(p1):
+def localwriteFunc(p1, UAV1):
     while True:
         try:
             # Simluation of test cases where the UAV disconnects from the GCS
-            UAV1 = UAV(p1)
             p1 = UAV1.localBuff()
+            p1 = 75
+            UAV2 = UAV(p1)
 
         except KeyboardInterrupt:
+            p1 = 75
             globalwriteFunc(p1)
 
 
@@ -24,8 +26,8 @@ def globalwriteFunc(p1):
             p1 = UAV1.globalcdb()
         
         except KeyboardInterrupt:
-            localwriteFunc(p1)
-            # Add code to merge local buffer file blockchain to global db
+            p1 = 75
+            localwriteFunc(p1, UAV1)
 
 # Declaration of proof for the first block within the blockchain
 p1 = 1
