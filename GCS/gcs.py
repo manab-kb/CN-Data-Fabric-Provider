@@ -1,5 +1,5 @@
 from Blockchain.blockchain import *
-from Network.ServerEn.server import *
+from Network.server import *
 import os
 
 # Class containing member functions and variables for the Ground Control Station(GCS)

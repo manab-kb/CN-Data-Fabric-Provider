@@ -2,7 +2,7 @@ from Blockchain.blockchain import *
 from random import *
 from math import *
 import os
-from Network.ServerEn.client import *
+from Network.client import *
 from threading import *
 
 # Class containing member functions and variables for each individual UAV (Unmanned Aerial Vehicle - Drone)
